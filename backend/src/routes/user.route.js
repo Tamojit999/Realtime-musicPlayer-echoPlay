@@ -3,6 +3,7 @@ const router = Router(); // create a new router instance
 
 router.get("/",(req,res)=>
 {
+    req.auth.userId; // get the user ID from the authenticated request
     res.send("User route works");
 
 });
