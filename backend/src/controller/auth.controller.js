@@ -1,3 +1,7 @@
+
+//// storing user details after clerk authentication if user is new then signup (store in the database) and if existing then login
+
+
 import { User } from "../model/user.model.js";
 
 

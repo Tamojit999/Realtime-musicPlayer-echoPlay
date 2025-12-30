@@ -1,10 +1,8 @@
 import { Router } from "express"; // import Router from express module to create modular route handlers
+import { getStats } from "../controller/stats.controller.js";
+
 const router = Router(); // create a new router instance
 
-router.get("/",(req,res)=>
-{
-    res.send("stat route works");
-
-});
+router.get("/",getStats);
 
 export default router; // export the router to be used in other parts of the application

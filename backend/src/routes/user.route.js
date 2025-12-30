@@ -1,11 +1,9 @@
 import { Router } from "express"; // import Router from express module to create modular route handlers
+
+
+import { getAllUsers } from "../controller/user.controller.js";
 const router = Router(); // create a new router instance
 
-router.get("/",(req,res)=>
-{
-    req.auth.userId; // get the user ID from the authenticated request
-    res.send("User route works");
-
-});
+router.get("/",getAllUsers);
 
 export default router; // export the router to be used in other parts of the application

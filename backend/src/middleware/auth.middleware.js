@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-//// check if the user is authenticated or not 
+//// check if the user is authenticated or not  (user is logged in or not)
 
 export const protectRoute = async (req, res, next) => {
     if (!req.auth.userId) {

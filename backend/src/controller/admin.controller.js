@@ -1,9 +1,9 @@
 
-
 //// creating song 
 
 import { Album } from "../model/album.model.js"; // import Album model
 import { Song } from "../model/song.model.js"; // import Song model
+
 
 
 ////uploading to cloudinary
@@ -19,7 +19,7 @@ const uploadToCloudinary=async(file)=>
     catch(err)
     {
         console.log("Cloudinary upload error:",err);
-        throw new Error("cloudinary uploading error"); // propagate any errors to the caller
+    
     }
 }
 
@@ -63,3 +63,81 @@ export const createSong = async (req, res,next) => { // define an asynchronous f
     }
 
 };
+
+
+//// deleting song
+
+export const deleteSong=async(res,req,next)=>
+{
+    try{
+        const {id}=req.params;
+        const song=await Song.findById(id);
+        if(song.albumId)
+        {
+            await Album.findByIdAndUpdate(song.albumId,{
+                $pull:{songs:song._id} // remove the song's ID from the album's songs array
+        });
+        }
+        await Song.findByIdAndDelete(id); // delete the song from the database
+        res.status(200).json({message:"Song deleted successfully"});
+
+    }
+    catch(err)
+    {
+        next(err);
+    }
+}
+
+
+
+//create album
+
+
+export const createAlbum=async(req,res,next)=>
+{
+    try{
+    const {title,artist,releaseYear}=req.body;
+
+    const imageFile=req.files; // get the uploaded image file
+
+    const imageUrl= await uploadToCloudinary(imageFile); // upload image file to Cloudinary and get the URL
+    const album=new Album({
+        title,
+        artist,
+        releaseYear,
+        imageUrl,
+
+    });
+    await album.save();
+
+    }catch(err)
+    {
+        next(err);
+    }  
+
+}
+
+
+//deleteing album
+
+
+export const deleteAlbum=async(req,res,next)=>
+{
+    try{
+        const {id}=req.params;
+        await Song.deleteMany({albumId:id}); // delete all songs associated with the album
+        await Album.findByIdAndDelete(id);
+        res.status(200).json({message:"Album deleted successfully"});
+
+    }catch(err)
+    {
+        next(err);
+    }
+}
+
+/// check admin
+
+export const checkAdmin=async(req,res,next)=>
+{
+    res.status(200).json({message:"You are an admin"});
+}
