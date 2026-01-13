@@ -5,7 +5,7 @@ import express from 'express' // import express module for server creation
 const app = express() // create an instance of express application
 
 
-import cors from "cors" 
+import cors from "cors"  
 
 app.use(cors({
   origin:'http://localhost:3000',

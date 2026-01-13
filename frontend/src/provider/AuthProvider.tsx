@@ -2,6 +2,7 @@ import { useAuth } from '@clerk/clerk-react';
 import { useEffect, useState } from 'react';
 import { axiosInstance } from '@/lib/axios';
 import { Loader } from 'lucide-react';
+import { useAuthStore } from '@/stores/useAuthStore';
 
 //when the user sign in using  clerk the token is generated  and to retrive the token mwe use getToken function from clerk 
 
@@ -12,11 +13,17 @@ const AuthProvider = ({children}:{children:React.ReactNode}) => {
 
     const {getToken} = useAuth(); // getToken function to retrieve the token
     const [loading,setLoading] = useState(true); //useState is a function that allow you to add state to functional components in react 
+    const {checkAdminStatus}=useAuthStore();
     useEffect(()=>{
         const initAuth=async()=>{
             try{
                 const token = await getToken();
                 updateApiToken(token);
+                if(token)
+                {
+                   await checkAdminStatus();
+
+                }
 
             }catch(err)
             {
