@@ -21,7 +21,7 @@ export const getStats=async(req,res,next)=>
 
             },
             {
-                $groupBy:{
+                $group:{
                     _id:"artist",
                 }
 

@@ -1,5 +1,6 @@
 import { axiosInstance } from '@/lib/axios';
-import type { Album, Song } from '@/type';
+import type { Album, Song, Stats } from '@/type';
+import toast from 'react-hot-toast';
 import {create} from 'zustand'; // this is use  for creating global store it store the data from the database and we can access it from anywhere without performing the fetch operation everytime
  
 
@@ -12,12 +13,17 @@ interface MusicStore{ // interface is use because we are using a typesript
     trendingSong:Song[];
     featuredSong:Song[];
     madeForSong:Song[];
+    stats:Stats;
 
     fetchAlbums: ()=> Promise<void>;
     fetchAlbumId:(id:string)=> Promise<void>;
     fetchTrendingSongs:()=>Promise<void>;
     fetchFeaturedSongs:()=>Promise<void>;
     fetchMadeForSongs:()=>Promise<void>;
+    fetchStats:()=>Promise<void>;
+    fetchSongs:()=>Promise<void>;
+    deleteSong:(id:string)=>Promise<void>;
+    deleteAlbum:(id:string)=>Promise<void>
 }
 
 export const useMusicStore=create<MusicStore>((set)=>({
@@ -29,6 +35,12 @@ export const useMusicStore=create<MusicStore>((set)=>({
     featuredSong:[],
     madeForSong:[],
     trendingSong:[],
+    stats:{
+        totalAlbums:0,
+        totalArtists:0,
+        totalSongs:0,
+        totalUser:0
+    },
     fetchAlbums:async()=>
     {
         set({isLoading:true,error:null});
@@ -113,6 +125,70 @@ export const useMusicStore=create<MusicStore>((set)=>({
         
        
     },
+    fetchStats:async()=>
+    {
+        set({isLoading:true,error:null});
+        try {
+            const response=await axiosInstance.get('/stats');
+            set({stats:response.data});
+            
+        } catch (error:any) {
+            set({error:error.response.data.message})
+            
+        }
+        finally{
+            set({isLoading:false});
+        }
+
+    },
+    fetchSongs:async()=>{
+         set({isLoading:true,error:null});
+        try {
+            const response=await axiosInstance.get('/songs');
+            set({songs:response.data});
+            
+        } catch (error:any) {
+            set({error:error.response.data.message})
+            
+        }
+        finally{
+            set({isLoading:false});
+        }
+
+    },
+    deleteSong:async(id)=>
+    {
+        set({isLoading:true,error:null});
+        try {
+            await axiosInstance.delete(`/admin/songs/${id}`);
+            set(state=>({songs:state.songs.filter(song=>song._id!==id)}));
+            toast.success('Song deleted successfully');
+        } catch (error:any) {
+            set({error:error.response.data.message})
+            
+        }
+        finally{
+            set({isLoading:false});
+        }
+    },
+    deleteAlbum:async (id:string) => {
+		set({ isLoading: true, error: null });
+		try {
+			await axiosInstance.delete(`/admin/albums/${id}`);
+			set((state) => ({
+				albums: state.albums.filter((album) => album._id !== id),
+				songs: state.songs.map((song) =>
+					song.albumId === state.albums.find((a) => a._id === id)?.title ? { ...song, album: null } : song
+				),
+			}));
+			toast.success("Album deleted successfully");
+		} catch (error: any) {
+			toast.error("Failed to delete album: " + error.message);
+		} finally {
+			set({ isLoading: false });
+		}
+	},
+    
 
 
 }))

@@ -6,6 +6,8 @@ import MainLayout from "./layout/MainLayout";
 import ChatPage from "./pages/ChatPage/ChatPage";
 import AlbumPage from "./pages/Album/AlbumPage";
 import AudioPlayer from  "./layout/components/AudioPlayer";
+import AdminPage from "./pages/Admin/AdminPage";
+import {Toaster} from 'react-hot-toast';
 
 
 function App() {
@@ -18,7 +20,7 @@ function App() {
 					element={<AuthenticateWithRedirectCallback signUpForceRedirectUrl={"/auth-callback"} />}
 				/>
 				<Route path='/auth-callback' element={<AuthCallbackPage />} />
-				
+				<Route path='/admin' element={<AdminPage/>} />
 				<Route element={<MainLayout/>}>
 				<Route path='/' element={<HomePage />} />
 				<Route path='/chat' element={<ChatPage />} />
@@ -26,6 +28,7 @@ function App() {
 				</Route>
 					
 			</Routes>
+			<Toaster/>
 		
 		</>
 	);
