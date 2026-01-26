@@ -3,8 +3,8 @@ import PlaylistSkeleton from '@/components/ui/PlaylistSkeleton'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
 import { useMusicStore } from '@/stores/useMusicStore'
-import { SignedIn } from '@clerk/clerk-react'
-import { HomeIcon, Library, MessageCircleIcon } from 'lucide-react'
+
+import { HomeIcon, Library } from 'lucide-react'
 import { useEffect } from 'react'
 
 import { Link } from 'react-router-dom'
@@ -38,27 +38,6 @@ const LeftSidebar = () => {
 
 
         </div>
-        <SignedIn>
-          {/*message*/}
-          <div className='space-y-2 '>
-            <Link to={'/chat'}
-              className={cn(
-                buttonVariants({
-                  variant: "ghost",
-                  className: "w-full justify-start text-white",
-                })
-              )}
-
-            >
-              <MessageCircleIcon className='mr-2 size-5' />
-              <span className='hidden md:inline'>Message</span>
-            </Link>
-
-
-          </div>
-
-
-        </SignedIn>
       </div>
       <div className=' h-full rounded-lg bg-zinc-900 p-4 overflow-hidden'>
         <div className='flex items-center justify-between mb-4'>
@@ -79,7 +58,7 @@ const LeftSidebar = () => {
                     <img 
                     src={album.imageUrl}
                     alt='PlayList img'
-                    className='size-12 rounded-md flex-shrink-0 object-cover'/>
+                    className='size-12 rounded-md shrink-0 object-cover'/>
 
                     <div className='flex-1 min-w-0 hidden md:block'>
                       <p className='font-medium truncate'>{album.title}</p>

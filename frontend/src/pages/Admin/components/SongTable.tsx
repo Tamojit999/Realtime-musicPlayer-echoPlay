@@ -1,4 +1,3 @@
-import React from "react";
 import { useMusicStore } from "@/stores/useMusicStore";
 import {
   Table,
@@ -36,7 +35,7 @@ export const SongTable = () => {
         {/* ================= HEADER ================= */}
         <TableHeader>
           <TableRow className="hover:bg-zinc-800/50">
-            <TableHead className="w-[50px]"></TableHead>
+            <TableHead className="w-12.5"></TableHead>
 
             <TableHead className="text-sm sm:text-base">
               Title

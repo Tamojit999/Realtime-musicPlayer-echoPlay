@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card'
-import { Icon } from 'lucide-react'
-import React, { type ReactElement } from 'react'
+
+
 type StatsCardProps = {
     icon:React.ElementType,
     label:string,

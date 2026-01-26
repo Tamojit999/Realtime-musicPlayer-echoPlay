@@ -7,12 +7,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React, { useEffect } from 'react'
+
 import { Calendar, Music, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const AlbumsTable = () => {
-    const { albums, deleteAlbum, fetchAlbums, isLoading, error } = useMusicStore();
+    const { albums, deleteAlbum,isLoading, error } = useMusicStore();
     if (isLoading) {
         return (
             <div className="flex items-center justify-center py-8">
@@ -36,7 +36,7 @@ const AlbumsTable = () => {
             <Table>
                 <TableHeader>
                     <TableRow className="hover:bg-zinc-800/50">
-                        <TableHead className='w-[50px]'></TableHead>
+                        <TableHead className='w-12.5'></TableHead>
                         <TableHead className='text-sm sm:text-base'>Title</TableHead>
                         <TableHead className='hidden sm:table-cell'>Artist</TableHead>
                         <TableHead className='hidden sm:table-cell'>Releae Year</TableHead>

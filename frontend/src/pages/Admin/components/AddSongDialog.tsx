@@ -7,7 +7,7 @@ import { axiosInstance } from '@/lib/axios';
 import { useMusicStore } from '@/stores/useMusicStore'
 
 import { Plus, Upload } from 'lucide-react';
-import React, { useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import toast from 'react-hot-toast';
 
 const AddSongDialog = () => {
@@ -78,7 +78,7 @@ const AddSongDialog = () => {
 	return (
 		<Dialog open={songDialogOpen} onOpenChange={setSongDialogOpen}>
 			<DialogTrigger asChild>
-				<Button className='bg-emerald-500 hover:bg-emerald-600 text-black '>
+				<Button className='bg-purple-500 hover:bg-purple-600 text-black '>
 					<Plus />
 					Add Song
 				</Button>
@@ -116,7 +116,7 @@ const AddSongDialog = () => {
 					<div className='text-center'>
 						{files.image ? (
 							<div className='space-y-2'>
-								<div className='text-sm text-emerald-500'>Image selected:</div>
+								<div className='text-sm text-purple-400'>Image selected:</div>
 								<div className='text-xs text-zinc-400'>{files.image.name.slice(0, 20)}</div>
 							</div>
 						) : (
@@ -194,7 +194,7 @@ const AddSongDialog = () => {
 					<Button variant='outline' onClick={() => setSongDialogOpen(false)} disabled={isLoading}>
 						Cancel
 					</Button>
-					<Button onClick={handleSubmit} disabled={isLoading} className='bg-emerald-600 hover:bg-emerald-500 text-black '>
+					<Button onClick={handleSubmit} disabled={isLoading} className='bg-purple-600 hover:bg-purple-500 text-black '>
 						{isLoading ? "Uploading..." : "Add Song"}
 					</Button>
 				</DialogFooter>

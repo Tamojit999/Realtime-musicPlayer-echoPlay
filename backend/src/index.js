@@ -39,7 +39,7 @@ app.use(express.urlencoded({ extended: true })) // middleware to parse URL-encod
 
 import dotenv from 'dotenv' // import dotenv module to manage environment variables
 dotenv.config() // load environment variables from .env file
-const PORT = process.env.port || 3000 // set server port from environment variable or default to 3000
+const PORT = process.env.PORT || 5000 // set server port from environment variable or default to 3000
 
 //// control the file upload 
 

@@ -3,15 +3,21 @@ import { useMusicStore } from '@/stores/useMusicStore';
 import { usePlayerStore } from '@/stores/usePlayerStore';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { Clock, Pause, Play } from 'lucide-react';
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const formatDuration = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-    return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
+
+export const formatDuration = (time:number) => {
+  if (!time || isNaN(time)) return "0:00";
+
+  const totalSeconds = Math.floor(time);
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+
+  return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 };
+
 const AlbumPage = () => {
     const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
 
@@ -56,7 +62,7 @@ const AlbumPage = () => {
                 <div className='relative min-h-full'>
                     {/*bg gradiant*/}
                     <div
-                        className='absolute inset-0 bg-gradient-to-b from-[#5038a0]/80 via-zinc-900/80
+                        className='absolute inset-0 bg-linear-to-b from-[#5038a0]/80 via-zinc-900/80
 					 to-zinc-900 pointer-events-none'
                         aria-hidden='true'
                     />
@@ -66,7 +72,7 @@ const AlbumPage = () => {
                             <img
                                 src={curralbum?.imageUrl}
                                 alt={curralbum?.title}
-                                className='w-[240px] h-[240px] shadow-xl rounded'
+                                className='w-60 h-60 shadow-xl rounded'
                             />
                             <div className='hidden sm:flex flex-col justify-end'>
                                 <p className='text-sm font-medium'>
@@ -85,7 +91,7 @@ const AlbumPage = () => {
                             <Button
                             onClick={handlePlaySong}
                                 size='icon'
-                                className='w-14 h-14 rounded-full bg-green-500 hover:bg-green-400 hover:scale-105 transition-all'>
+                                className='w-14 h-14 rounded-full bg-linear-to-r from-purple-500 via-pink-500 to-teal-400 hover:from-purple-600 hover:via-pink-600 hover:to-teal-500 hover:scale-105 transition-all'>
                                     {
                                         isPlaying && currentSong?._id === curralbum?.songs[0]._id ? (
                                            <Pause className='h-7 w-7 text-black' />

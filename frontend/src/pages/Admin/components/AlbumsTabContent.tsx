@@ -1,6 +1,6 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Car, Library } from 'lucide-react'
-import React from 'react'
+import {  Library } from 'lucide-react'
+
 import AddAlbumDialog from './AddAlbumDialog'
 import AlbumsTable from './AlbumsTable'
 

@@ -1,5 +1,5 @@
 import { usePlayerStore } from '@/stores/usePlayerStore';
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { Slider } from "@/components/ui/slider"
 import { Button } from '@/components/ui/button';
@@ -42,8 +42,8 @@ const PlaybackControls = () => {
     }
 
     return <footer className='h-20 sm:h-24 bg-zinc-900 border-t border-zinc-800 px-4  '>
-        <div className='flex justify-between items-center h-full max-w-[1800px] mx-auto'>
-            <div className='hidden sm:flex items-center gap-4 min-w-[180px] w-[30%]'>
+        <div className='flex justify-between items-center h-full max-w-450 mx-auto'>
+            <div className='hidden sm:flex items-center gap-4 min-w-45 w-[30%]'>
                 {currentSong && (
                     <>
                         <img
@@ -124,9 +124,9 @@ const PlaybackControls = () => {
                         value={[currentTime]}
                         max={duration || 100}
                         step={1}
-                        className=' hover:cursor-grab active:cursor-grabbing [&_[data-orientation=horizontal]]:bg-white/20
-    [&_[data-orientation=horizontal]>span]:bg-green-500
-    [&_[role=slider]]:bg-white'
+                        className=' hover:cursor-grab active:cursor-grabbing **:data-[orientation=horizontal]:bg-white/20
+    [&_[data-orientation=horizontal]>span]:bg-purple-500
+    **:[[role=slider]]:bg-white'
                         onValueChange={handleSeek}
                     />
                     <div className='text-xs text-zinc-400'>{formatDuration(duration)}</div>
@@ -135,7 +135,7 @@ const PlaybackControls = () => {
 
 
             </div>
-            <div className='hidden sm:flex items-center gap-4 min-w-[180px] w-[30%] justify-end '>
+            <div className='hidden sm:flex items-center gap-4 min-w-45 w-[30%] justify-end '>
 
                 <Button size='icon' className='hover:text-white text-zinc-400'>
                     <Mic2 className='h-4 w-4' />
@@ -156,9 +156,9 @@ const PlaybackControls = () => {
                         value={[volume]}
                         max={100}
                         step={1}
-                        className='w-24 hover:cursor-grab active:cursor-grabbing  [&_[data-orientation=horizontal]]:bg-white/20
-    [&_[data-orientation=horizontal]>span]:bg-green-500
-    [&_[role=slider]]:bg-white'
+                        className='w-24 hover:cursor-grab active:cursor-grabbing  **:data-[orientation=horizontal]:bg-white/20
+    [&_[data-orientation=horizontal]>span]:bg-purple-500  
+    **:[[role=slider]]:bg-white'
                         onValueChange={(value) => {
                             setVolume(value[0]);
                             if (audioRef.current) {
