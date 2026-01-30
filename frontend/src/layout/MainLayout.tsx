@@ -1,65 +1,66 @@
 import { useEffect, useState } from 'react'
-import {  Outlet } from 'react-router-dom'
-import Split from "react-split";
-import LeftSidebar from './components/LeftSidebar';
-import PlaybackControls from './components/PlaybackControls';
+import { Outlet } from 'react-router-dom'
+import Split from 'react-split'
+import LeftSidebar from './components/LeftSidebar'
+import PlaybackControls from './components/PlaybackControls'
+
 const MainLayout = () => {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+      setIsMobile(window.innerWidth < 768)
+    }
 
-    checkMobile();
-    window.addEventListener("resize", checkMobile);
-    return () => window.removeEventListener("resize", checkMobile);
-  }, []);
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   return (
-
-    <div className='h-screen bg-black text-white flex flex-col'>
-
-
+    <div className="h-screen bg-black text-white flex flex-col">
+      {/* MAIN CONTENT */}
       {!isMobile ? (
-        <Split direction="horizontal" className="flex-1 flex h-full overflow-hidden p-2" gutterSize={8}
-          sizes={[20, 80, 20]}      // default widths (percent)
-          minSize={[10, 40]}     // matches your constraints
-          maxSize={[30, 9999]} >
-
+        // DESKTOP LAYOUT
+        <Split
+          direction="horizontal"
+          className="flex-1 flex h-full overflow-hidden p-2"
+          gutterSize={8}
+          sizes={[20, 80]}
+          minSize={[10, 40]}
+        >
           {/* LEFT SIDEBAR */}
           <div className="h-full">
             <LeftSidebar />
           </div>
 
-          {/* MAIN OUTLET CONTENT */}
+          {/* MAIN OUTLET */}
           <div className="h-full overflow-auto">
             <Outlet />
           </div>
-
-        
-        </Split>) : (
-          <Split direction="horizontal" className="flex-1 flex h-full overflow-hidden py-1" gutterSize={8}  sizes={[20, 80]} minSize={[10, 40]}>
-              <div  className="h-full overflow-auto">
+        </Split>
+      ) : (
+        // MOBILE LAYOUT
+        <Split
+          direction="horizontal"
+          className="flex-1 flex h-full overflow-hidden py-1"
+          gutterSize={8}
+          sizes={[25, 75]}
+          minSize={[15, 40]}
+        >
+          <div className="h-full overflow-auto">
             <LeftSidebar />
           </div>
+
           <div className="h-full overflow-auto">
-              <Outlet />
-            </div>
-          </Split>
-           
+            <Outlet />
+          </div>
+        </Split>
+      )}
 
-      )
-       
-      }
-     <PlaybackControls />
-
-      
-
-
-
-
+      {/* PLAYER */}
+      <PlaybackControls />
     </div>
-
   )
 }
 
