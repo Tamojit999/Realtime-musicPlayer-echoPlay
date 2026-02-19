@@ -1,4 +1,4 @@
-# 🎵 Advanced Spotify Clone
+# 🎵 Echo Play
 
 A full-stack music streaming application built with modern web technologies, featuring real-time audio playback, user authentication, and comprehensive music management.
 
